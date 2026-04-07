@@ -32,7 +32,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       // Handle unauthorized access
       localStorage.removeItem('token')
-      window.location.href = '/login'
+      window.location.href = '/auth'
     }
     return Promise.reject(error)
   }
@@ -136,7 +136,7 @@ export const requestService = {
 
   // Update request status (admin only)
   updateRequestStatus: async (id, status) => {
-    return api.put(`/requests/${id}`, { status })
+    return api.put(`/requests/${id}?status=${encodeURIComponent(status)}`)
   },
 
   // Delete request (admin only)
