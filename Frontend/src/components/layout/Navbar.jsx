@@ -1,0 +1,110 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Sparkles, Menu, X, LogIn, UserPlus, 
+  ChevronDown, Globe
+} from 'lucide-react';
+
+const navLinks = [
+  { name: 'Explore', path: '/' },
+  { name: 'Categories', path: '/categories' },
+  { name: 'Requests', path: '/requests' },
+  { name: 'Pricing', path: '/pricing' },
+  { name: 'About', path: '/about' },
+];
+
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 left-0 right-0 z-50"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mt-4 flex h-16 items-center justify-between rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.8)] px-6 backdrop-blur-xl">
+          
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2.5 group">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20 transition-shadow duration-300 group-hover:shadow-violet-500/40">
+              <Sparkles className="h-5 w-5 text-white" />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-violet-400 to-blue-400 opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
+            </div>
+            <span className="text-lg font-bold tracking-tight text-white">
+              Tool<span className="gradient-text-accent">Verse</span>
+            </span>
+          </a>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.path}
+                className="relative rounded-lg px-4 py-2 text-sm font-medium text-[#8888a4] transition-all duration-200 hover:text-white"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+
+          {/* Right Section */}
+          <div className="hidden items-center gap-3 md:flex">
+            <button className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-[#8888a4] transition-all duration-200 hover:text-white">
+              <LogIn className="h-4 w-4" />
+              Log in
+            </button>
+            <button className="btn-glow flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 transition-all duration-300 hover:shadow-violet-500/40">
+              <UserPlus className="h-4 w-4" />
+              Sign Up
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#8888a4] transition-colors hover:text-white md:hidden"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mx-4 mt-2 overflow-hidden rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.95)] backdrop-blur-xl md:hidden"
+          >
+            <div className="flex flex-col gap-1 p-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-lg px-4 py-3 text-sm font-medium text-[#8888a4] transition-all hover:bg-white/[0.03] hover:text-white"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
+                <button className="rounded-lg px-4 py-3 text-left text-sm font-medium text-[#8888a4] hover:text-white">
+                  Log in
+                </button>
+                <button className="rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 text-sm font-semibold text-white">
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+}

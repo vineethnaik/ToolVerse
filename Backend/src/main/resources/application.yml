@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ToolVerse Backend
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017}
+      database: ${MONGODB_DATABASE:toolverse}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    com.toolverse: DEBUG
+    org.springframework.data.mongodb: DEBUG
