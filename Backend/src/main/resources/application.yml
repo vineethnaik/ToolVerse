@@ -3,8 +3,8 @@ spring:
     name: ToolVerse Backend
   data:
     mongodb:
-      uri: mongodb+srv://vineethnaikeslavath_db_user:hsj7XeL5tRhD3oAu@toolverse.ovqjujb.mongodb.net/?appName=ToolVerse
-      database: toolverse
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb+srv://vineethnaikeslavath_db_user:hsj7XeL5tRhD3oAu@toolverse.ovqjujb.mongodb.net/?appName=ToolVerse}
+      database: ${SPRING_DATA_MONGODB_DATABASE:toolverse}
 
 server:
   port: 8080
@@ -16,5 +16,5 @@ logging:
 
 # JWT Configuration
 jwt:
-  secret: mySecretKey123456789012345678901234567890
+  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
   expiration: 86400000
