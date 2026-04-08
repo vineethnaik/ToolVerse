@@ -69,7 +69,8 @@ public class SecurityConfig {
             "http://localhost:5174", 
             "http://localhost:5175",
             "https://*.vercel.app",
-            "https://vercel.app"
+            "https://vercel.app",
+            "https://tool-verse-teal.vercel.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
