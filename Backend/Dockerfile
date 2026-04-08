@@ -1,5 +1,5 @@
 # Use multi-stage build for better performance and smaller image size
-FROM maven:3.9-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build   
 
 # Set working directory
 WORKDIR /app
@@ -40,5 +40,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD curl -f http://localhost:8080/api/actuator/health || exit 1
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=production", "app.jar"]
+# Run the application 
+ENTRYPOINT ["java", "-Dspring.profiles.active=production", "-jar", "app.jar"]
