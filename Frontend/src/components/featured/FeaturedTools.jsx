@@ -52,7 +52,7 @@ const FeaturedTools = ({ onViewDetails, onBookmark, bookmarks = [] }) => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="tool-card-grid grid grid-cols-1 md:grid-cols-3 gap-4">
         {toolList.map((tool, index) => (
           <motion.div
             key={tool.id}
@@ -65,6 +65,7 @@ const FeaturedTools = ({ onViewDetails, onBookmark, bookmarks = [] }) => {
               onViewDetails={onViewDetails}
               onBookmark={onBookmark}
               isBookmarked={isBookmarked(tool.id)}
+              enableSpin={false}
             />
           </motion.div>
         ))}

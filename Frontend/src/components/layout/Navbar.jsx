@@ -1,25 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, NavLink, Link } from 'react-router-dom';
-import { 
-  Sparkles, Menu, X, LogIn, UserPlus, 
-  ChevronDown, User, LogOut
+import {
+  Sparkles,
+  LogIn,
+  UserPlus,
+  ChevronDown,
+  User,
+  LogOut,
+  Compass,
+  LayoutGrid,
+  Send,
+  Tag,
+  Info,
+  Menu,
+  X,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const navLinks = [
-  { name: 'Explore', path: '/home' },
-  { name: 'Categories', path: '/categories' },
-  { name: 'Requests', path: '/requests' },
-  { name: 'Pricing', path: '/pricing' },
-  { name: 'About', path: '/about' },
+  { name: 'Explore', path: '/home', icon: Compass },
+  { name: 'Categories', path: '/categories', icon: LayoutGrid },
+  { name: 'Requests', path: '/requests', icon: Send },
+  { name: 'Pricing', path: '/pricing', icon: Tag },
+  { name: 'About', path: '/about', icon: Info },
 ];
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [bubbleOpen, setBubbleOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const bubbleRef = useRef(null);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (bubbleRef.current && !bubbleRef.current.contains(e.target)) {
+        setBubbleOpen(false);
+      }
+    };
+    if (bubbleOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [bubbleOpen]);
 
   const handleLogout = () => {
     logout();
@@ -34,10 +58,9 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 flex h-16 items-center justify-between rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.8)] px-6 backdrop-blur-xl">
-          
+        <div className="mt-4 flex h-16 items-center justify-between gap-3 rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.8)] px-4 backdrop-blur-xl sm:px-6">
           {/* Logo */}
-          <Link to="/home" className="flex items-center gap-2.5 group">
+          <Link to="/home" className="flex shrink-0 items-center gap-2.5 group">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20 transition-shadow duration-300 group-hover:shadow-violet-500/40">
               <Sparkles className="h-5 w-5 text-white" />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-violet-400 to-blue-400 opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
@@ -47,60 +70,74 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.path}
-                className={({ isActive }) => `relative rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-white ${isActive ? 'text-white bg-white/[0.06]' : 'text-[#8888a4]'}`}
-              >
-                {link.name}
-              </NavLink>
-            ))}
+          {/* Desktop: bubble pill nav */}
+          <div className="hidden flex-1 items-center justify-center md:flex">
+            <div className="bubble-nav-shell flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] px-1.5 py-1.5 shadow-inner shadow-black/20">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
+                  className={({ isActive }) =>
+                    `bubble-nav-item group flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-violet-600/90 to-blue-600/90 text-white shadow-lg shadow-violet-500/25'
+                        : 'text-[#a8a8c0] hover:bg-white/10 hover:text-white'
+                    }`
+                  }
+                >
+                  <link.icon className="h-4 w-4 shrink-0 opacity-80" />
+                  <span>{link.name}</span>
+                </NavLink>
+              ))}
+            </div>
           </div>
 
-          {/* Right Section */}
-          <div className="hidden items-center gap-3 md:flex">
+          {/* Right Section — desktop */}
+          <div className="hidden shrink-0 items-center gap-2 md:flex">
             {user ? (
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-white/[0.1]"
+                  className="bubble-nav-item flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
                 >
                   <User className="h-4 w-4" />
                   <span>{user.firstName}</span>
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronDown className="h-4 w-4 opacity-70" />
                 </button>
-                
+
                 <AnimatePresence>
                   {profileOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-48 rounded-lg border border-white/[0.06] bg-[rgba(10,10,15,0.95)] backdrop-blur-xl shadow-lg"
+                      className="absolute right-0 mt-2 w-52 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(10,10,15,0.96)] shadow-xl backdrop-blur-xl"
                     >
                       <div className="p-2">
-                        <div className="px-3 py-2 text-sm text-gray-300">
-                          <div className="font-medium text-white">{user.firstName} {user.lastName}</div>
-                          <div className="text-xs">{user.email}</div>
+                        <div className="rounded-xl px-3 py-2 text-sm text-gray-300">
+                          <div className="font-medium text-white">
+                            {user.firstName} {user.lastName}
+                          </div>
+                          <div className="text-xs text-gray-400">{user.email}</div>
                         </div>
                         <div className="mt-1 border-t border-white/[0.06] pt-1">
                           <button
+                            type="button"
                             onClick={() => {
                               setProfileOpen(false);
                               navigate('/profile');
                             }}
-                            className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left text-[#8888a4] hover:text-white transition-colors duration-200"
+                            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-[#8888a4] transition hover:bg-white/5 hover:text-white"
                           >
                             <User className="h-4 w-4" />
                             Profile
                           </button>
                           <button
+                            type="button"
                             onClick={handleLogout}
-                            className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left text-[#8888a4] hover:text-white transition-colors duration-200"
+                            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-[#8888a4] transition hover:bg-white/5 hover:text-white"
                           >
                             <LogOut className="h-4 w-4" />
                             Logout
@@ -113,16 +150,20 @@ export default function Navbar() {
               </div>
             ) : (
               <>
-                <button 
-                  onClick={() => navigate('/auth')}
-                  className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-[#8888a4] transition-all duration-200 hover:text-white"
+                <button
+                  type="button"
+                  onClick={() => navigate('/auth?mode=login')}
+                  className="rounded-full px-4 py-2 text-sm font-medium text-[#a8a8c0] transition hover:text-white"
                 >
-                  <LogIn className="h-4 w-4" />
-                  Log in
+                  <span className="inline-flex items-center gap-2">
+                    <LogIn className="h-4 w-4" />
+                    Log in
+                  </span>
                 </button>
-                <button 
-                  onClick={() => navigate('/auth')}
-                  className="btn-glow flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 transition-all duration-300 hover:shadow-violet-500/40"
+                <button
+                  type="button"
+                  onClick={() => navigate('/auth?mode=register')}
+                  className="btn-glossy flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white"
                 >
                   <UserPlus className="h-4 w-4" />
                   Sign Up
@@ -131,80 +172,134 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#8888a4] transition-colors hover:text-white md:hidden"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Mobile: bubble menu trigger */}
+          <div className="relative flex items-center gap-2 md:hidden" ref={bubbleRef}>
+            {user && (
+              <button
+                type="button"
+                onClick={() => navigate('/profile')}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white"
+                aria-label="Profile"
+              >
+                <User className="h-5 w-5" />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setBubbleOpen(!bubbleOpen)}
+              className="bubble-menu-trigger flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-violet-600 to-blue-600 text-white shadow-lg shadow-violet-500/30"
+              aria-expanded={bubbleOpen}
+              aria-label="Open menu"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {bubbleOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="h-6 w-6" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+
+            {/* Mobile bubble menu — expands upward */}
+            <AnimatePresence>
+              {bubbleOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 14 }}
+                  transition={{
+                    opacity: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                    y: { duration: 0.36, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                  className="absolute right-0 top-full z-[60] mt-3 w-[min(92vw,320px)] origin-top-right rounded-3xl border border-white/20 bg-[rgba(10,10,18,0.55)] p-3 shadow-2xl backdrop-blur-xl"
+                >
+                  <div className="flex flex-col gap-2">
+                    {navLinks.map((link, i) => (
+                      <motion.div
+                        key={link.path}
+                        initial={{ opacity: 0, x: 12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.04 }}
+                      >
+                        <NavLink
+                          to={link.path}
+                          onClick={() => setBubbleOpen(false)}
+                          className={({ isActive }) =>
+                            `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                              isActive
+                                ? 'bg-gradient-to-r from-violet-600/90 to-blue-600/90 text-white shadow-md'
+                                : 'text-[#c4c4d8] hover:bg-white/10 hover:text-white'
+                            }`
+                          }
+                        >
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10">
+                            <link.icon className="h-5 w-5" />
+                          </span>
+                          {link.name}
+                        </NavLink>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="mt-3 border-t border-white/10 pt-3">
+                    {user ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBubbleOpen(false);
+                          handleLogout();
+                        }}
+                        className="flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-medium text-red-300/90 hover:bg-red-500/10"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                      </button>
+                    ) : (
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setBubbleOpen(false);
+                            navigate('/auth?mode=login');
+                          }}
+                          className="flex-1 rounded-2xl border border-white/20 py-3 text-sm font-medium text-white hover:bg-white/10"
+                        >
+                          Log in
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setBubbleOpen(false);
+                            navigate('/auth?mode=register');
+                          }}
+                          className="btn-glossy flex-1 rounded-2xl py-3 text-sm font-semibold text-white"
+                        >
+                          Sign Up
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mx-4 mt-2 overflow-hidden rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.95)] backdrop-blur-xl md:hidden"
-          >
-            <div className="flex flex-col gap-1 p-4">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  onClick={() => setMobileOpen(false)}
-                  to={link.path}
-                  className={({ isActive }) => `rounded-lg px-4 py-3 text-sm font-medium transition-all hover:bg-white/[0.03] hover:text-white ${isActive ? 'bg-white/[0.06] text-white' : 'text-[#8888a4]'}`}
-                >
-                  {link.name}
-                </NavLink>
-              ))}
-              <div className="mt-3 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
-                {user ? (
-                  <>
-                    <div className="px-4 py-2 text-sm text-gray-300">
-                      <div className="font-medium text-white">{user.firstName} {user.lastName}</div>
-                      <div className="text-xs">{user.email}</div>
-                    </div>
-                    <button
-                      onClick={() => { navigate('/profile'); setMobileOpen(false); }}
-                      className="flex items-center gap-2 rounded-lg px-4 py-3 text-left text-sm font-medium text-[#8888a4] hover:text-white"
-                    >
-                      <User className="h-4 w-4" />
-                      Profile
-                    </button>
-                    <button 
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 rounded-lg px-4 py-3 text-left text-sm font-medium text-[#8888a4] hover:text-white"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button 
-                      onClick={() => { navigate('/auth'); setMobileOpen(false); }}
-                      className="rounded-lg px-4 py-3 text-left text-sm font-medium text-[#8888a4] hover:text-white"
-                    >
-                      Log in
-                    </button>
-                    <button 
-                      onClick={() => { navigate('/auth'); setMobileOpen(false); }}
-                      className="rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 text-sm font-semibold text-white"
-                    >
-                      Sign Up
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.nav>
   );
 }

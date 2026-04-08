@@ -33,6 +33,7 @@ const CategoriesPage = () => {
             bookmarks={[]}
             onBookmark={() => {}}
             onViewDetails={() => {}}
+            enableSpin={false}
             totalCount={filteredTools.length}
           />
         </section>

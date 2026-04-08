@@ -11,6 +11,7 @@ const SearchResults = ({
   onViewDetails, 
   onBookmark,
   bookmarks = [],
+  enableSpin = true,
   onLoadMore,
   hasMore = false,
   totalCount = 0
@@ -117,7 +118,7 @@ const SearchResults = ({
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="tool-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         <AnimatePresence>
           {tools.map((tool, index) => (
@@ -132,6 +133,7 @@ const SearchResults = ({
                 onViewDetails={onViewDetails}
                 onBookmark={onBookmark}
                 isBookmarked={isBookmarked(tool.id)}
+                enableSpin={enableSpin}
               />
             </motion.div>
           ))}

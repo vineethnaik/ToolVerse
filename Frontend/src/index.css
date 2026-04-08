@@ -207,3 +207,118 @@ body {
   background: rgba(139, 92, 246, 0.3);
   color: white;
 }
+
+/* ===== Category marquee (horizontal wallpaper) ===== */
+@keyframes category-marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes category-marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.category-marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6%,
+    black 94%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6%,
+    black 94%,
+    transparent
+  );
+}
+
+.category-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: category-marquee-left 50s linear infinite;
+}
+
+.category-marquee-track--reverse {
+  animation: category-marquee-right 55s linear infinite;
+}
+
+.category-marquee-track:hover,
+.category-marquee-track--reverse:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-marquee-track,
+  .category-marquee-track--reverse {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ===== 360° 3D card rotation (Y axis) ===== */
+@keyframes card-rotate-y-360 {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.card-3d-scene {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.card-3d-spin-inner {
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  animation: card-rotate-y-360 18s linear infinite;
+  will-change: transform;
+}
+
+.card-3d-scene:hover .card-3d-spin-inner {
+  animation-play-state: paused;
+}
+
+/* Stagger rotation speed in tool grids (direct child wraps ToolCard) */
+.tool-card-grid > *:nth-child(3n + 1) .card-3d-spin-inner {
+  animation-duration: 16s;
+}
+.tool-card-grid > *:nth-child(3n + 2) .card-3d-spin-inner {
+  animation-duration: 20s;
+}
+.tool-card-grid > *:nth-child(3n + 3) .card-3d-spin-inner {
+  animation-duration: 24s;
+}
+
+/* Category cards: one full spin on hover (no infinite — marquee already moves) */
+.card-3d-scene--category .card-3d-spin-inner {
+  animation: none;
+}
+
+.card-3d-scene--category:hover .card-3d-spin-inner {
+  animation: card-rotate-y-360 0.9s ease-in-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-3d-spin-inner {
+    animation: none !important;
+  }
+  .card-3d-scene--category:hover .card-3d-spin-inner {
+    animation: none !important;
+  }
+}
