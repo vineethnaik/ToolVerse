@@ -1,6 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Code, User, Mail, Heart } from 'lucide-react'
+import { User, Mail, Heart } from 'lucide-react'
+import { GithubIcon } from '../icons/GithubIcon'
+import { LinkedinIcon } from '../icons/LinkedinIcon'
 import { categories } from '../../data/mockTools'
 
 const Footer = () => {
@@ -35,8 +37,8 @@ const Footer = () => {
 
   const socialLinks = [
     { name: 'Twitter', icon: User, href: '#twitter' },
-    { name: 'GitHub', icon: Code, href: '#github' },
-    { name: 'LinkedIn', icon: User, href: '#linkedin' },
+    { name: 'GitHub', icon: GithubIcon, href: 'https://github.com/vineethnaik' },
+    { name: 'LinkedIn', icon: LinkedinIcon, href: 'https://www.linkedin.com/in/eslavathvineethnaik/' },
     { name: 'Email', icon: Mail, href: 'mailto:hello@toolverse.ai' },
   ]
 
@@ -70,7 +72,13 @@ const Footer = () => {
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <social.icon className="w-4 h-4" />
+                    {social.name === 'GitHub' ? (
+                      <GithubIcon size={16} className="text-current" />
+                    ) : social.name === 'LinkedIn' ? (
+                      <LinkedinIcon size={16} className="text-current" />
+                    ) : (
+                      <social.icon className="w-4 h-4" />
+                    )}
                   </motion.a>
                 ))}
               </div>
