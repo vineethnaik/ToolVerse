@@ -35,7 +35,16 @@ const AuthPage = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-4 md:mb-6"
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-1 md:mb-2">ToolVerse</h1>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-violet-600 to-blue-600 p-1 shadow-lg shadow-violet-500/20">
+              <img 
+                src="/tc.png" 
+                alt="ToolVerse Logo" 
+                className="h-full w-full object-cover rounded-xl"
+              />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white">ToolVerse</h1>
+          </div>
           <p className="text-gray-300">Discover the best AI tools for your needs</p>
         </motion.div>
 

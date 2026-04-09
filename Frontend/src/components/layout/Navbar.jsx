@@ -61,8 +61,12 @@ export default function Navbar() {
         <div className="mt-4 flex h-16 items-center justify-between gap-3 rounded-2xl border border-white/[0.06] bg-[rgba(10,10,15,0.8)] px-4 backdrop-blur-xl sm:px-6">
           {/* Logo */}
           <Link to="/home" className="flex shrink-0 items-center gap-2.5 group">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20 transition-shadow duration-300 group-hover:shadow-violet-500/40">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden shadow-lg shadow-violet-500/20 transition-shadow duration-300 group-hover:shadow-violet-500/40">
+              <img 
+                src="/tc.png" 
+                alt="ToolVerse Logo" 
+                className="h-full w-full object-cover"
+              />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-violet-400 to-blue-400 opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
             </div>
             <span className="text-lg font-bold tracking-tight text-white">

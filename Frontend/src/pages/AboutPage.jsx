@@ -131,9 +131,13 @@ const AboutPage = () => {
             transition={{ delay: 0.2, type: "spring" }}
             className="mb-8"
           >
-            <div className="mx-auto h-20 w-20 rounded-2xl bg-gradient-to-br from-violet-600 to-blue-600 p-1">
-              <div className="flex h-full w-full items-center justify-center rounded-xl bg-dark-base">
-                <Brain className="h-10 w-10 text-violet-400" />
+            <div className="mx-auto h-20 w-20 rounded-2xl bg-gradient-to-br from-violet-600 to-blue-600 p-1 shadow-lg shadow-violet-500/20">
+              <div className="flex h-full w-full items-center justify-center rounded-xl bg-dark-base overflow-hidden">
+                <img 
+                  src="/tc.png" 
+                  alt="ToolVerse Logo" 
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
           </motion.div>

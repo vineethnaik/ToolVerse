@@ -56,9 +56,18 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <h3 className="text-2xl font-bold text-white mb-2">ToolVerse</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-lg shadow-violet-500/20">
+                  <img 
+                    src="/tc.png" 
+                    alt="ToolVerse Logo" 
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold text-white">ToolVerse</h3>
+              </div>
               <p className="text-gray-400 leading-relaxed mb-6">
-                Discover the best AI tools in one place. We curate and review the latest 
+                Discover best AI tools in one place. We curate and review the latest 
                 artificial intelligence tools to help you find exactly what you need.
               </p>
               
