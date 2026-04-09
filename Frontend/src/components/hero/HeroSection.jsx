@@ -28,7 +28,7 @@ const HeroSection = ({ onSearch }) => {
   }
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 py-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center items-center px-3 sm:px-4 py-16 sm:py-20 overflow-hidden">
       {/* Background gradient effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-violet-900/20 via-transparent to-cyan-900/20" />
       
@@ -36,12 +36,12 @@ const HeroSection = ({ onSearch }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 text-center max-w-6xl mx-auto"
+        className="relative z-10 text-center max-w-5xl sm:max-w-6xl mx-auto"
       >
         {/* Trust badges */}
         <motion.div
           variants={itemVariants}
-          className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-400"
+          className="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 text-xs sm:text-sm text-gray-400"
         >
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-green-400" />
@@ -62,12 +62,12 @@ const HeroSection = ({ onSearch }) => {
           variants={itemVariants}
           className="mb-8"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="gradient-text">Discover the Best</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+            <span className="gradient-text">Discover Best</span>
             <br />
             <span className="gradient-text-accent">AI Tools</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed">
             Explore, compare, and find the perfect AI tools for your needs. 
             From chatbots to design tools, all in one place.
           </p>
@@ -76,7 +76,7 @@ const HeroSection = ({ onSearch }) => {
         {/* Search bar */}
         <motion.div
           variants={itemVariants}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
           <SearchBar 
             onSearch={onSearch}
@@ -85,13 +85,13 @@ const HeroSection = ({ onSearch }) => {
           />
           
           {/* Popular searches */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
             <span className="text-gray-500">Popular:</span>
             {['ChatGPT', 'Midjourney', 'Claude', 'GitHub Copilot'].map((term, index) => (
               <button
                 key={index}
                 onClick={() => onSearch?.(term)}
-                className="px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
+                className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-gray-300 hover:text-white text-xs sm:text-sm"
               >
                 {term}
               </button>
@@ -102,11 +102,11 @@ const HeroSection = ({ onSearch }) => {
         {/* Stats */}
         <motion.div
           variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-lg sm:max-w-2xl mx-auto"
         >
           <div className="text-center">
             <div className="text-3xl font-bold gradient-text">250+</div>
-            <div className="text-gray-400 text-sm mt-1">AI Tools</div>
+            <div className="text-gray-400 text-xs sm:text-sm mt-1">AI Tools</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold gradient-text">50+</div>
