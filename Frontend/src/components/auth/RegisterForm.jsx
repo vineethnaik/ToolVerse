@@ -48,9 +48,9 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="auth-register-wrap w-full max-w-xl mx-auto"
+      className="w-full max-w-md mx-auto"
     >
-      <div className="auth-register-card bg-white/10 backdrop-blur-2xl rounded-2xl p-4 md:p-6 border border-white/35 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+      <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/35 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         <div className="text-center mb-4 md:mb-8">
           <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
             <UserPlus className="w-7 h-7 md:w-8 md:h-8 text-white" />
@@ -81,7 +81,7 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
         <form onSubmit={handleSubmit} className="space-y-2.5 md:space-y-3">
           <div className="grid grid-cols-2 gap-3 md:gap-4">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="firstName" className="block text-sm sm:text-base font-medium text-gray-300 mb-2">
                 First Name
               </label>
               <input
@@ -91,12 +91,12 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                 placeholder="First name"
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="lastName" className="block text-sm sm:text-base font-medium text-gray-300 mb-2">
                 Last Name
               </label>
               <input
@@ -106,7 +106,7 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                 placeholder="Last name"
               />
             </div>
@@ -114,7 +114,7 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="username" className="block text-sm sm:text-base font-medium text-gray-300 mb-2">
                 Username
               </label>
               <input
@@ -125,13 +125,13 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
                 onChange={handleChange}
                 required
                 minLength={3}
-                className="w-full px-4 py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                 placeholder="Choose a username"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-300 mb-2">
                 Email
               </label>
               <input
@@ -141,7 +141,7 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                 placeholder="your@email.com"
               />
             </div>
@@ -160,15 +160,15 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
                 onChange={handleChange}
                 required
                 minLength={6}
-                className="w-full px-4 py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 pr-12"
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 pr-10 sm:pr-12"
                 placeholder="Create a password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200"
+                className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200 p-1"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
               </button>
             </div>
           </div>
@@ -178,7 +178,7 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
             disabled={isLoading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="btn-glossy w-full py-2.5 md:py-3 px-4 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-glossy w-full py-2 sm:py-2.5 md:py-3 px-3 sm:px-4 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
