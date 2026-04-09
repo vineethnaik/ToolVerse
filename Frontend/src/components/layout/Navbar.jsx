@@ -191,7 +191,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setBubbleOpen(!bubbleOpen)}
-              className="bubble-menu-trigger flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-violet-600 to-blue-600 text-white shadow-lg shadow-violet-500/30"
+              className="bubble-menu-trigger flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-violet-600 to-blue-600 text-white shadow-lg shadow-violet-500/30 md:hidden lg:hidden"
               aria-expanded={bubbleOpen}
               aria-label="Open menu"
             >
@@ -231,7 +231,7 @@ export default function Navbar() {
                     opacity: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
                     y: { duration: 0.36, ease: [0.22, 1, 0.36, 1] },
                   }}
-                  className="absolute right-0 top-full z-[60] mt-2 sm:mt-3 w-[min(85vw,280px)] sm:w-[min(80vw,320px)] origin-top-right rounded-2xl sm:rounded-3xl border border-white/20 bg-[rgba(10,10,18,0.55)] p-2.5 sm:p-3 shadow-2xl backdrop-blur-xl"
+                  className="absolute right-0 top-full z-[70] mt-2 sm:mt-3 w-[min(90vw,300px)] sm:w-[min(80vw,320px)] origin-top-right rounded-2xl sm:rounded-3xl border border-white/20 bg-[rgba(10,10,18,0.55)] p-2.5 sm:p-3 shadow-2xl backdrop-blur-xl"
                 >
                   <div className="flex flex-col gap-2">
                     {navLinks.map((link, i) => (

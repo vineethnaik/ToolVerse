@@ -74,7 +74,7 @@ public class AuthController {
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             log.error("Login failed: {}", e.getMessage());
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     
