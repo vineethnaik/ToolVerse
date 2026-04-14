@@ -21,6 +21,7 @@ import { GithubIcon } from '../components/icons/GithubIcon'
 import { LinkedinIcon } from '../components/icons/LinkedinIcon'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import ContactForm from '../components/ContactForm'
 
 const stats = [
   { value: '500+', label: 'AI Tools', icon: Brain },
@@ -385,11 +386,31 @@ const AboutPage = () => {
           </div>
         </motion.div>
 
+        {/* Contact Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.8, duration: 0.8 }}
+          className="mx-auto mt-20 max-w-3xl"
+        >
+          <div className="text-center mb-8">
+            <Mail className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-violet-400 mb-4" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">Get in Touch</h2>
+            <p className="mt-4 text-sm sm:text-base text-gray-300">
+              Have questions, feedback, or want to collaborate? We'd love to hear from you.
+            </p>
+          </div>
+          
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-sm">
+            <ContactForm />
+          </div>
+        </motion.div>
+
         {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 0.8 }}
+          transition={{ delay: 3.2, duration: 0.8 }}
           className="mx-auto mt-20 max-w-4xl"
         >
           <div className="rounded-3xl bg-gradient-to-r from-violet-600 to-blue-600 p-1">

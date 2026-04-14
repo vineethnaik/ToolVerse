@@ -7,6 +7,7 @@ D:\Step\Backend\src\main\java\com\toolverse\service\CategoryService.java
 D:\Step\Backend\src\main\java\com\toolverse\service\ToolRequestService.java
 D:\Step\Backend\src\main\java\com\toolverse\model\enums\PricingModel.java
 D:\Step\Backend\src\main\java\com\toolverse\model\Tool.java
+D:\Step\Backend\src\main\java\com\toolverse\service\EmailService.java
 D:\Step\Backend\src\main\java\com\toolverse\repository\ToolRepository.java
 D:\Step\Backend\src\main\java\com\toolverse\service\ToolService.java
 D:\Step\Backend\src\main\java\com\toolverse\config\JwtUtil.java
@@ -16,10 +17,13 @@ D:\Step\Backend\src\main\java\com\toolverse\config\MongoConfig.java
 D:\Step\Backend\src\main\java\com\toolverse\service\AuthenticationService.java
 D:\Step\Backend\src\main\java\com\toolverse\model\enums\ToolStatus.java
 D:\Step\Backend\src\main\java\com\toolverse\dto\AuthResponse.java
+D:\Step\Backend\src\main\java\com\toolverse\dto\VerificationRequest.java
 D:\Step\Backend\src\main\java\com\toolverse\service\UserDetailsServiceImpl.java
 D:\Step\Backend\src\main\java\com\toolverse\config\SecurityConfig.java
 D:\Step\Backend\src\main\java\com\toolverse\controller\AuthController.java
+D:\Step\Backend\src\main\java\com\toolverse\dto\ResendVerificationRequest.java
 D:\Step\Backend\src\main\java\com\toolverse\dto\LoginRequest.java
+D:\Step\Backend\src\main\java\com\toolverse\service\VerificationTokenService.java
 D:\Step\Backend\src\main\java\com\toolverse\ToolverseApplication.java
 D:\Step\Backend\src\main\java\com\toolverse\config\EnvConfig.java
 D:\Step\Backend\src\main\java\com\toolverse\repository\CategoryRepository.java
