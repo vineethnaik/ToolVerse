@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
-import { requestService } from '../services/api'
+import { useForm, ValidationError } from '@formspree/react'
 
 const initialState = {
   toolIdea: '',
@@ -11,48 +11,16 @@ const initialState = {
 }
 
 const RequestsPage = () => {
-  const [formData, setFormData] = useState(initialState)
-  const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
+  const [state, handleSubmit, reset] = useForm("xjgjvdkp")
 
   useEffect(() => {
-    if (submitted) {
+    if (state.succeeded) {
       const timer = setTimeout(() => {
-        setSubmitted(false)
-        setFormData(initialState)
+        reset()
       }, 5000)
       return () => clearTimeout(timer)
     }
-  }, [submitted])
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setSubmitting(true)
-    setSubmitted(false)
-    setError('')
-
-    try {
-      await requestService.submitRequest({
-        ...formData,
-        status: 'PENDING',
-      })
-      setSubmitted(true)
-      setFormData(initialState)
-    } catch (err) {
-      const message =
-        err?.response?.data?.message ||
-        (typeof err?.response?.data === 'string' ? err.response.data : '') ||
-        'Failed to submit request. Please try again.'
-      setError(message)
-    } finally {
-      setSubmitting(false)
-    }
-  }
+  }, [state.succeeded, reset])
 
   return (
     <div className="min-h-screen bg-dark-base noise-overlay">
@@ -62,7 +30,7 @@ const RequestsPage = () => {
           <h1 className="text-3xl font-bold text-white md:text-4xl">Request a Tool</h1>
           <p className="mt-2 text-gray-400">Tell us which AI tool should be added next.</p>
 
-          {submitted && (
+          {state.succeeded && (
             <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-center">
               <div className="mb-4 flex justify-center">
                 <svg
@@ -106,11 +74,6 @@ const RequestsPage = () => {
               </p>
             </div>
           )}
-          {error && (
-            <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-200">
-              {error}
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <input
@@ -118,47 +81,94 @@ const RequestsPage = () => {
               name="_subject"
               value="Request a Tool - New Tool Submission"
             />
-            <input
-              name="toolIdea"
-              value={formData.toolIdea}
-              onChange={handleChange}
-              placeholder="Tool idea"
-              required
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
-            />
-            <textarea
-              name="problemItSolves"
-              value={formData.problemItSolves}
-              onChange={handleChange}
-              placeholder="What problem does it solve?"
-              required
-              rows={4}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
-            />
-            <input
-              name="desiredCategory"
-              value={formData.desiredCategory}
-              onChange={handleChange}
-              placeholder="Desired category"
-              required
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
-            />
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your email"
-              required
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
-            />
+            <div>
+              <label htmlFor="toolIdea" className="mb-2 block text-sm font-medium text-gray-300">
+                Tool Idea
+              </label>
+              <input
+                id="toolIdea"
+                name="toolIdea"
+                placeholder="Tool idea"
+                required
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
+              />
+              <ValidationError 
+                prefix="Tool Idea" 
+                field="toolIdea"
+                errors={state.errors}
+                className="mt-1 text-sm text-red-400"
+              />
+            </div>
+            <div>
+              <label htmlFor="problemItSolves" className="mb-2 block text-sm font-medium text-gray-300">
+                What problem does it solve?
+              </label>
+              <textarea
+                id="problemItSolves"
+                name="problemItSolves"
+                placeholder="What problem does it solve?"
+                required
+                rows={4}
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400 resize-none"
+              />
+              <ValidationError 
+                prefix="Problem It Solves" 
+                field="problemItSolves"
+                errors={state.errors}
+                className="mt-1 text-sm text-red-400"
+              />
+            </div>
+            <div>
+              <label htmlFor="desiredCategory" className="mb-2 block text-sm font-medium text-gray-300">
+                Desired Category
+              </label>
+              <input
+                id="desiredCategory"
+                name="desiredCategory"
+                placeholder="Desired category"
+                required
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
+              />
+              <ValidationError 
+                prefix="Desired Category" 
+                field="desiredCategory"
+                errors={state.errors}
+                className="mt-1 text-sm text-red-400"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-300">
+                Your Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Your email"
+                required
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-400"
+              />
+              <ValidationError 
+                prefix="Email" 
+                field="email"
+                errors={state.errors}
+                className="mt-1 text-sm text-red-400"
+              />
+            </div>
             <button
               type="submit"
-              disabled={submitting}
-              className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 font-semibold text-white"
+              disabled={state.submitting}
+              className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 font-semibold text-white transition-all hover:from-violet-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Submitting...' : 'Submit Request'}
+              {state.submitting ? 'Submitting...' : 'Submit Request'}
             </button>
+            {state.errors && state.errors.length > 0 && (
+              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+                <p className="text-sm text-red-200">
+                  Please fix the errors above and try again.
+                </p>
+              </div>
+            )}
           </form>
         </div>
       </main>
