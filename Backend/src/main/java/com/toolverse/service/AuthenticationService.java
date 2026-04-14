@@ -16,6 +16,8 @@ public class AuthenticationService {
     
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+    private final VerificationTokenService tokenService;
     
     public User registerUser(String username, String email, String password, String firstName, String lastName) {
         if (userRepository.existsByUsername(username)) {
@@ -26,6 +28,8 @@ public class AuthenticationService {
             throw new RuntimeException("Email already exists");
         }
         
+        String verificationToken = tokenService.generateVerificationToken();
+        
         User user = User.builder()
                 .username(username)
                 .email(email)
@@ -33,12 +37,23 @@ public class AuthenticationService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .role("USER")
-                .enabled(true)
+                .enabled(false) // Disabled until email is verified
+                .emailVerificationToken(verificationToken)
+                .emailVerificationTokenExpires(tokenService.getTokenExpirationTime())
                 .build();
         
         user.preCreate();
         User savedUser = userRepository.save(user);
-        log.info("User registered successfully: {}", username);
+        
+        // Send verification email
+        try {
+            emailService.sendVerificationEmail(email, verificationToken);
+        } catch (Exception e) {
+            log.error("Failed to send verification email for user {}: {}", username, e.getMessage());
+            // Continue with registration even if email fails
+        }
+        
+        log.info("User registered successfully (verification required): {}", username);
         return savedUser;
     }
     
@@ -92,5 +107,49 @@ public class AuthenticationService {
         User user = getUserByUsername(username);
         userRepository.delete(user);
         log.info("User deleted successfully: {}", username);
+    }
+    
+    public boolean verifyEmail(String token) {
+        User user = userRepository.findByEmailVerificationToken(token)
+                .orElse(null);
+        
+        if (user == null) {
+            log.warn("Invalid verification token provided");
+            return false;
+        }
+        
+        if (tokenService.isTokenExpired(user.getEmailVerificationTokenExpires())) {
+            log.warn("Expired verification token provided for user: {}", user.getUsername());
+            return false;
+        }
+        
+        user.setEmailVerified(true);
+        user.setEnabled(true);
+        user.setEmailVerificationToken(null);
+        user.setEmailVerificationTokenExpires(null);
+        user.preUpdate();
+        
+        userRepository.save(user);
+        log.info("Email verified successfully for user: {}", user.getUsername());
+        return true;
+    }
+    
+    public void resendVerificationEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email not found"));
+        
+        if (user.isEmailVerified()) {
+            throw new RuntimeException("Email is already verified");
+        }
+        
+        String newToken = tokenService.generateVerificationToken();
+        user.setEmailVerificationToken(newToken);
+        user.setEmailVerificationTokenExpires(tokenService.getTokenExpirationTime());
+        user.preUpdate();
+        
+        userRepository.save(user);
+        
+        emailService.sendVerificationEmail(email, newToken);
+        log.info("Verification email resent for user: {}", user.getUsername());
     }
 }

@@ -18,3 +18,22 @@ logging:
 jwt:
   secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
   expiration: 86400000
+
+# Email Configuration
+spring:
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:your-email@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:your-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# Email Verification
+verification:
+  token:
+    expiration: 3600000 # 1 hour

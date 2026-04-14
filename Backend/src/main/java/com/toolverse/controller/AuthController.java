@@ -4,7 +4,9 @@ import com.toolverse.config.JwtUtil;
 import com.toolverse.dto.AuthResponse;
 import com.toolverse.dto.LoginRequest;
 import com.toolverse.dto.RegisterRequest;
+import com.toolverse.dto.ResendVerificationRequest;
 import com.toolverse.dto.UpdateProfileRequest;
+import com.toolverse.dto.VerificationRequest;
 import com.toolverse.model.User;
 import com.toolverse.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -42,7 +44,8 @@ public class AuthController {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getRole()
+                user.getRole(),
+                user.isEmailVerified()
             );
             
             return ResponseEntity.ok(response);
@@ -68,13 +71,14 @@ public class AuthController {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getRole()
+                user.getRole(),
+                user.isEmailVerified()
             );
             
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             log.error("Login failed: {}", e.getMessage());
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
     
@@ -89,7 +93,8 @@ public class AuthController {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getRole()
+                user.getRole(),
+                user.isEmailVerified()
             );
             
             return ResponseEntity.ok(response);
@@ -119,13 +124,40 @@ public class AuthController {
                     updatedUser.getEmail(),
                     updatedUser.getFirstName(),
                     updatedUser.getLastName(),
-                    updatedUser.getRole()
+                    updatedUser.getRole(),
+                    updatedUser.isEmailVerified()
             );
 
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             log.error("Update current user failed: {}", e.getMessage());
             return ResponseEntity.badRequest().build();
+        }
+    }
+    
+    @PostMapping("/verify-email")
+    public ResponseEntity<String> verifyEmail(@Valid @RequestBody VerificationRequest request) {
+        try {
+            boolean verified = authService.verifyEmail(request.getToken());
+            if (verified) {
+                return ResponseEntity.ok("Email verified successfully");
+            } else {
+                return ResponseEntity.badRequest().body("Invalid or expired verification token");
+            }
+        } catch (Exception e) {
+            log.error("Email verification failed: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("Email verification failed");
+        }
+    }
+    
+    @PostMapping("/resend-verification")
+    public ResponseEntity<String> resendVerificationEmail(@Valid @RequestBody ResendVerificationRequest request) {
+        try {
+            authService.resendVerificationEmail(request.getEmail());
+            return ResponseEntity.ok("Verification email sent successfully");
+        } catch (RuntimeException e) {
+            log.error("Resend verification failed: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

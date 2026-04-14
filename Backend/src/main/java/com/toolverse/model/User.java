@@ -55,6 +55,16 @@ public class User implements UserDetails {
     @Field("lastLogin")
     private LocalDateTime lastLogin;
     
+    @Field("emailVerified")
+    @Builder.Default
+    private boolean emailVerified = false;
+    
+    @Field("emailVerificationToken")
+    private String emailVerificationToken;
+    
+    @Field("emailVerificationTokenExpires")
+    private LocalDateTime emailVerificationTokenExpires;
+    
     // UserDetails interface methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
