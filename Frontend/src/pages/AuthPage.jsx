@@ -15,7 +15,7 @@ const AuthPage = () => {
   }
 
   return (
-    <div className={`relative flex items-center justify-center px-3 sm:px-4 py-2 ${isLogin ? 'h-screen overflow-hidden' : 'min-h-screen overflow-y-auto'}`}>
+    <div className="relative flex items-center justify-center px-3 sm:px-4 py-2 min-h-screen overflow-y-auto">
       <video
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay

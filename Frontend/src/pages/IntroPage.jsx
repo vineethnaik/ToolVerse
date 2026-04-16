@@ -104,10 +104,10 @@ const IntroPage = () => {
   return (
     <>
       <style>{`
-        /* Apple System Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
  
         .intro-root {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           background: #07070f;
           color: #e8e8f0;
           min-height: 100vh;
@@ -185,7 +185,7 @@ const IntroPage = () => {
         }
  
         .hero-title {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: clamp(2.8rem, 7vw, 5.5rem);
           font-weight: 800;
           line-height: 1.06;
@@ -222,7 +222,7 @@ const IntroPage = () => {
           border: none;
           border-radius: 100px;
           color: #fff;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: 0.97rem;
           font-weight: 600;
           cursor: pointer;
@@ -240,7 +240,7 @@ const IntroPage = () => {
           border: 1px solid rgba(255,255,255,0.15);
           border-radius: 100px;
           color: #e8e8f0;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: 0.97rem;
           font-weight: 500;
           cursor: pointer;
@@ -365,7 +365,7 @@ const IntroPage = () => {
           background: rgba(139,92,246,0.05);
         }
         .stat-value {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: 2.6rem;
           font-weight: 800;
           background: linear-gradient(135deg, #818cf8, #a78bfa);
@@ -397,7 +397,7 @@ const IntroPage = () => {
           margin-bottom: 1rem;
         }
         .section-title {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: clamp(1.8rem, 4vw, 2.8rem);
           font-weight: 800;
           text-align: center;
@@ -446,7 +446,7 @@ const IntroPage = () => {
           margin-bottom: 1.2rem;
         }
         .feature-title {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: 1.05rem;
           font-weight: 700;
           margin-bottom: 0.6rem;
@@ -483,7 +483,7 @@ const IntroPage = () => {
           pointer-events: none;
         }
         .cta-title {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'DM Sans', sans-serif;
           font-size: clamp(1.6rem, 4vw, 2.4rem);
           font-weight: 800;
           letter-spacing: -0.02em;
@@ -522,7 +522,7 @@ const IntroPage = () => {
         {/* ── HERO ── */}
         <section className="hero">
           <video className="hero-video" autoPlay loop muted playsInline>
-            <source src="/intr0-1.mp4" type="video/mp4" />
+            <source src="/bgin.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
  

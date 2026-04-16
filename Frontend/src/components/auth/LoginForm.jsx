@@ -36,8 +36,12 @@ const LoginForm = ({ onSwitchMode }) => {
     >
       <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/35 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         <div className="text-center mb-6 sm:mb-8">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-            <LogIn className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 sm:mb-4">
+            <img 
+              src="/login png.jpg" 
+              alt="Login" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-2 tracking-tight">Welcome Back</h2>
           <p className="text-sm sm:text-base text-gray-300">Sign in to your ToolVerse account</p>

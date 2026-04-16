@@ -52,8 +52,12 @@ const RegisterForm = ({ onSwitchMode, onRegistered }) => {
     >
       <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/35 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         <div className="text-center mb-4 md:mb-8">
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-            <UserPlus className="w-7 h-7 md:w-8 md:h-8 text-white" />
+          <div className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-3 md:mb-4">
+            <img 
+              src="/register.jpg" 
+              alt="Register" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-1 md:mb-2 tracking-tight">Create Account</h2>
           <p className="text-gray-300 text-sm md:text-base">Join ToolVerse today</p>
