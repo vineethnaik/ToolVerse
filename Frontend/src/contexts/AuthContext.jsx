@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
         },
       })
       
-      const { token: newToken, ...userData } = response
+      const { token: newToken, ...userData } = response.data
       
       setToken(newToken)
       setUser(userData)
