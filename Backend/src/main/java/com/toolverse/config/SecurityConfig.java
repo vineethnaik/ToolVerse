@@ -72,7 +72,8 @@ public class SecurityConfig {
             "https://vercel.app",
             "https://tool-verse-teal.vercel.app",
             "https://www.toolverce.tech",
-            "https://toolverce.tech"
+            "https://toolverce.tech",
+            "https://toolverse-tesc.onrender.com"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));

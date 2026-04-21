@@ -37,7 +37,7 @@ public class AuthenticationService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .role("USER")
-                .enabled(false) // Disabled until email is verified
+                .enabled(true) // Enabled for testing
                 .emailVerificationToken(verificationToken)
                 .emailVerificationTokenExpires(tokenService.getTokenExpirationTime())
                 .build();
